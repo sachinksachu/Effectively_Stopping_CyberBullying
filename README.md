@@ -3,13 +3,13 @@
 # Dataset
 https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data
 
-#Requirements to run model
+# Requirements to run model
 pip3 install keras
 pip3 install nltk
 pip3 install tensorflow
 pip3 install keras-self-attention
 
-#Virtual environment
+# Virtual environment
 sudo apt install python3-venv
 python3 -m venv venv
 
