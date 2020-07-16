@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+
+<!-- <link rel="stylesheet" href="style.css"> data-toggle="modal" data-target="#myModal" -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+  <script src="{{url_for('static', filename='css/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='css/bootstrap.min.js')}}"></script>
+    <script type="text/javascript"> 
+        var pred = " ";
+    	pred = '{{ prediction_text }}';
+    		var para = '{{ p }}';
+    		
+    		var result = '{{result}}';
+    	var elem = document.getElementById('txt');
+    	$("#myModal2").modal('hide');
+    		$("#myModal3").modal('hide');
+    	
+    </script>
+
+</head>
+
+<body style="background-image: linear-gradient(#ffffff, #ffffff, #ffffff );">
+ <div class="login">
+	<h1>Demo</h1>
+	<h3 style="background: rgba(66, 217, 219)">Your Post</h3>
+
+     <!-- Main Input For Receiving Query to our ML -->
+     <div style="background: rgba(66, 217, 219); height: 300px; box-shadow: -0px 20px 20px rgba(12, 12, 13, 0.2); padding :10px;">
+    <div class="xlarge-8 small-12 columns title-area section--hero__row__title-area"> <span class="cats section--hero__row__title-area__cats"><a href="https://1stwebdesigner.com/category/collections" style="color:#000000;"></a></span><span class=" cats tags cats--tags section--hero__row__title-area__cats--tags"><a href="https://1stwebdesigner.com/tag/css"></a></span><span class=" cats tags cats--tags section--hero__row__title-area__cats--tags"><a href="https://1stwebdesigner.com/tag/typography"></a></span><h2 class="headline section--hero__row__title-area__headline">{{ p }}</h2><div>Posted on <p id="date_time"></p><a href="https://1stwebdesigner.com/author/editorial-team/"></a></div></div>
+    </div>
+    <br>
+   
+
+
+ 
+
+ </div>
+
+  <div class="modal fade" id="myModal2" >
+    <div class="modal-dialog modal-sm">
+    	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-content">
+       
+        <div class="modal-body">
+        
+          <p>Your Text seems to be bullying. You are not allowed to post</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+ <div class="modal fade" id="myModal3" >
+    <div class="modal-dialog modal-sm">
+    	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-content">
+       
+        <div id="green" class="modal-body">
+        
+          <p>Your Text is Clean. Posted Successfully !!</p>
+        </div>
+    </div>
+  </div>
+</div>
+  
+
+</body>
+<script >
+
+	var today = new Date();
+	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var dateTime = date+' '+time;
+	document.getElementById("date_time").innerHTML = dateTime;
+	
+    	$("#myModal2").modal('hide');
+    	$("#myModal3").modal('hide');
+        
+        if (pred === 'Toxic')
+        {
+    	  $("#myModal2").modal('show',{backdrop: false});
+          var x = document.getElementById('txt'); 
+          x.value = para; 
+          document.getElementById("txt").style.textDecoration = "underline";
+          document.getElementById("txt").style.textDecorationColor = "red";
+          //var arr_x = x.split(" "); 
+    		}
+    	else if(pred === 'Not Toxic'){
+    		$("#myModal3").modal('show',{backdrop: false});
+    		//setTimeout(function(){location.href="test.html"} , 5000);
+    	}
+    	
+    	else{$("#myModal2").modal('hide');
+    		$("#myModal3").modal('hide');
+    		}
+        
+</script>
+</html>
