@@ -4,34 +4,101 @@
 <head>
   <meta charset="UTF-8">
   <title>ML API</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+<!-- <link rel="stylesheet" href="style.css"> data-toggle="modal" data-target="#myModal" -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+  <script src="{{url_for('static', filename='css/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='css/bootstrap.min.js')}}"></script>
+    <script type="text/javascript"> 
+        var pred = " ";
+    	pred = '{{ prediction_text }}';
+    		var para = '{{ p }}';
+    		
+    		var result = '{{result}}';
+    	var elem = document.getElementById('txt');
+    	$("#myModal2").modal('hide');
+    		$("#myModal3").modal('hide');
+    	
+    </script>
+
 </head>
 
 <body>
  <div class="login">
-	<h1>Predict Salary Analysis</h1>
+	<h1>Demo</h1>
+	<br>
+	<br>
 
      <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="comment" placeholder="Experience" required="required" />
+     <div >
+    <form method="post" name="myForm">
+    	<textarea name="comment" placeholder="Enter Text" required="required" id="txt" rows="10" cols="40"  style="box-shadow: -20px 20px 20px rgba(12, 12, 13, 0.2); border-radius: 12px;"></textarea>
+    	<br>
+    	<br>
 
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        <button type="submit" style="box-shadow: -20px 20px 20px rgba(12, 12, 13, 0.2);" name = "myBtn" class="btn btn-primary btn-block btn-large" class="w3-button w3-black" data-toggle="modal" data-target="#myModal2"  >Submit</button>
     </form>
-
-   <br>
-   <br>
-   {{ prediction_text }}
-
+    </div>
     <br>
-   {{ p }}
+   
+
+
+ 
 
  </div>
 
+  <div class="modal fade" id="myModal2" >
+    <div class="modal-dialog modal-sm">
+    	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-content">
+       
+        <div class="modal-body">
+        
+          <p>Your Text seems to be bullying. You are not allowed to post</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+ <div class="modal fade" id="myModal3" >
+    <div class="modal-dialog modal-sm">
+    	 <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-content">
+       
+        <div id="green" class="modal-body">
+        
+          <p>Your Text is Clean. Posted Successfully !!</p>
+        </div>
+    </div>
+  </div>
+</div>
+  
 
 </body>
+<script >
+	
+    	$("#myModal2").modal('hide');
+    	$("#myModal3").modal('hide');
+        
+        if (pred === 'Toxic')
+        {
+    	  $("#myModal2").modal('show',{backdrop: false});
+          var x = document.getElementById('txt'); 
+          x.value = para; 
+          document.getElementById("txt").style.textDecoration = "underline";
+          document.getElementById("txt").style.textDecorationColor = "red";
+          //var arr_x = x.split(" "); 
+    		}
+    	else if(pred === 'Not Toxic'){
+    		$("#myModal3").modal('show',{backdrop: false});
+    		//setTimeout(function(){location.href="test.html"} , 5000);
+    	}
+    	
+    	else{$("#myModal2").modal('hide');
+    		$("#myModal3").modal('hide');
+    		}
+        
+</script>
 </html>
